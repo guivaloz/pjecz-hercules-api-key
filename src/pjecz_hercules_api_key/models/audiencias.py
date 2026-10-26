@@ -13,6 +13,12 @@ from pjecz_hercules_api_key.core.database import Base
 class Audiencia(Base):
     """Audiencia"""
 
+    CARACTERES = {
+        "NO DEFINIDO": "No definido",
+        "PUBLICA": "Pública",
+        "PRIVADA": "Privada",
+    }
+
     # Nombre de la tabla
     __tablename__ = "audiencias"
 
@@ -48,6 +54,36 @@ class Audiencia(Base):
     # expediente_origen
     # delitos
     origen: Mapped[str] = mapped_column(String(256), default="")
+
+    @property
+    def distrito_clave(self):
+        """Distrito clave"""
+        return self.autoridad.distrito.clave
+
+    @property
+    def distrito_nombre(self):
+        """Distrito nombre"""
+        return self.autoridad.distrito.nombre
+
+    @property
+    def distrito_nombre_corto(self):
+        """Distrito nombre corto"""
+        return self.autoridad.distrito.nombre_corto
+
+    @property
+    def autoridad_clave(self):
+        """Autoridad clave"""
+        return self.autoridad.clave
+
+    @property
+    def autoridad_descripcion(self):
+        """Autoridad descripción"""
+        return self.autoridad.descripcion
+
+    @property
+    def autoridad_descripcion_corta(self):
+        """Autoridad descripción corta"""
+        return self.autoridad.descripcion_corta
 
     def __repr__(self):
         """Representación"""
